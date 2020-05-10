@@ -5,9 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.rtvik.healthcare.dto.AppointmentDetailsDto;
 import com.capgemini.rtvik.healthcare.dto.AppointmentDto;
 import com.capgemini.rtvik.healthcare.entities.Appointment;
+import com.capgemini.rtvik.healthcare.exceptions.AppointmentNotFound;
+import com.capgemini.rtvik.healthcare.exceptions.CenterNotFound;
+import com.capgemini.rtvik.healthcare.exceptions.UserNotFound;
 import com.capgemini.rtvik.healthcare.service.IAppointmentService;
 import com.capgemini.rtvik.healthcare.util.Util;
 
@@ -26,6 +32,8 @@ import com.capgemini.rtvik.healthcare.util.Util;
 @RequestMapping("/appointments")
 public class AppointmentController {
 
+	private static final Logger log = LoggerFactory.getLogger(AppointmentController.class); 
+	
 	@Autowired
 	private IAppointmentService service;
 	
@@ -116,4 +124,36 @@ public class AppointmentController {
 		ResponseEntity<AppointmentDetailsDto> response = new ResponseEntity<AppointmentDetailsDto>(detailsDto, HttpStatus.OK);
 		return response;
 	}
+	
+	@ExceptionHandler(AppointmentNotFound.class)
+	public ResponseEntity<String> handleException1(AppointmentNotFound exception){
+		log.error("Appointment Exception",exception);
+		 String msg = exception.getMessage();
+	     ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+	     return response;
+	}
+	
+	@ExceptionHandler(CenterNotFound.class)
+	public ResponseEntity<String> handleException2(CenterNotFound exception){
+		log.error("Appointment Exception",exception);
+		 String msg = exception.getMessage();
+	     ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+	     return response;
+	}
+	
+	@ExceptionHandler(UserNotFound.class)
+	public ResponseEntity<String> handleException3(UserNotFound exception){
+		log.error("Appointment Exception",exception);
+		 String msg = exception.getMessage();
+	     ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+	     return response;
+	}
+	
+	 @ExceptionHandler(Throwable.class)
+	    public ResponseEntity<String> handleAll(Throwable ex) {
+	        log.error("exception caught", ex);
+	        String msg = ex.getMessage();
+	        ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+	        return response;
+	    }
 }
