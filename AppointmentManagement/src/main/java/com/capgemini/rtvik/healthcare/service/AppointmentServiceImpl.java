@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.rtvik.healthcare.dao.IAppointmentDao;
 import com.capgemini.rtvik.healthcare.entities.Appointment;
+import com.capgemini.rtvik.healthcare.exceptions.AppointmentNotFound;
+import com.capgemini.rtvik.healthcare.exceptions.CenterNotFound;
+import com.capgemini.rtvik.healthcare.exceptions.UserNotFound;
 
 @Service
 @Transactional
@@ -35,13 +38,15 @@ public class AppointmentServiceImpl implements IAppointmentService {
 			Appointment appoint = optional.get();
 			return appoint;
 		}
-		return null;
+		throw new AppointmentNotFound("Appointment not found");
 	}
 
 	@Override
 	public List<Appointment> findByCenter(String centerId) {
 		// TODO Auto-generated method stub
 		List<Appointment> list = dao.findByCenterId(centerId);
+		if(list.isEmpty())
+			throw new CenterNotFound("No Appointments found with this center-id:" + centerId);
 		return list;
 	}
 
@@ -49,6 +54,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
 	public List<Appointment> findByUser(String userId) {
 		// TODO Auto-generated method stub
 		List<Appointment> list = dao.findByUserId(userId);
+		if(list.isEmpty())
+			throw new UserNotFound("No Appointments found with this user-id: "+userId);
 		return list;
 	}
 
