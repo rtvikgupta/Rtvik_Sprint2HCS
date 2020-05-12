@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.rtvik.healthcare.dto.AppointmentDetailsDto;
-import com.capgemini.rtvik.healthcare.dto.AppointmentDto;
+import com.capgemini.rtvik.healthcare.dto.CreateAppointmentRequest;
 import com.capgemini.rtvik.healthcare.entities.Appointment;
 import com.capgemini.rtvik.healthcare.exceptions.AppointmentNotFound;
 import com.capgemini.rtvik.healthcare.exceptions.CenterNotFound;
@@ -43,11 +43,10 @@ public class AppointmentController {
 	 * @return
 	 */
 	@PostMapping("/add")
-	public ResponseEntity<AppointmentDetailsDto> addAppointment(@RequestBody AppointmentDto dto) {
+	public ResponseEntity<String> addAppointment(@RequestBody CreateAppointmentRequest dto) {
 		Appointment appointment = convertDto(dto);
-		appointment = service.saveAppointment(appointment);
-		AppointmentDetailsDto detailsDto = convertAppointmentDetails(appointment); 
-		ResponseEntity<AppointmentDetailsDto> response = new ResponseEntity<AppointmentDetailsDto>(detailsDto, HttpStatus.OK);
+		String msg = service.makeAppointment(appointment.getUserId(),appointment.getCenterId(),appointment.getTestId(),appointment.getDateTime()); 
+		ResponseEntity<String> response = new ResponseEntity<String>(msg, HttpStatus.OK);
 		return response;
 	}
 	
@@ -56,14 +55,13 @@ public class AppointmentController {
 	 * @param dto
 	 * @return
 	 */
-	public Appointment convertDto(AppointmentDto dto) {
+	public Appointment convertDto(CreateAppointmentRequest dto) {
 		Appointment app = new Appointment();
 		app.setCenterId(dto.getCenterId());
 		app.setUserId(dto.getUserId());
 		app.setTestId(dto.getTestId());
 		LocalDateTime dateTime = Util.convertStringToDate(dto.getDateTime());
 		app.setDateTime(dateTime);
-		//app.setStatus(false);
 		return app;
 	}
 	
@@ -84,7 +82,7 @@ public class AppointmentController {
 	}
 	
 	/**
-	 * convert form appintments: entity list -> detailsdto list
+	 * convert form appointments: entity list -> detailsdto list
 	 * @param appointments
 	 * @return
 	 */
@@ -117,11 +115,10 @@ public class AppointmentController {
 	 * @return
 	 */
 	@PutMapping("/approve/{id}")
-	public ResponseEntity<AppointmentDetailsDto> approveAppointment(@PathVariable("id") BigInteger appointmentId) {
+	public ResponseEntity<Boolean> approveAppointment(@PathVariable("id") BigInteger appointmentId) {
 		Appointment appoint = service.findById(appointmentId);
-		Appointment app = service.approveAppointment(appoint);
-		AppointmentDetailsDto detailsDto = convertAppointmentDetails(app); 
-		ResponseEntity<AppointmentDetailsDto> response = new ResponseEntity<AppointmentDetailsDto>(detailsDto, HttpStatus.OK);
+		boolean status = service.approveAppointment(appoint);
+		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(status, HttpStatus.OK);
 		return response;
 	}
 	
