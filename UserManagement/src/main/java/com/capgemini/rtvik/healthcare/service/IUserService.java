@@ -4,8 +4,7 @@ import com.capgemini.rtvik.healthcare.entities.User;
 
 public interface IUserService {
 	
-	public String registerUser(User user);
+	String registerUser(User user);
 	
-	public User findById(String id);
-	
+	User findById(String id);
 }
