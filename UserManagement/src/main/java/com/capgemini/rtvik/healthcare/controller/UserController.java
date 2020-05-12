@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.rtvik.healthcare.dto.UserDetailsDto;
-import com.capgemini.rtvik.healthcare.dto.UserDto;
+import com.capgemini.rtvik.healthcare.dto.CreateUserRequest;
 import com.capgemini.rtvik.healthcare.entities.User;
 import com.capgemini.rtvik.healthcare.exception.UserAlreadyExistsException;
 import com.capgemini.rtvik.healthcare.exception.UserNotFoundException;
@@ -30,7 +30,7 @@ public class UserController {
 	private IUserService service;
 	
 	@PostMapping("/add")
-	public ResponseEntity<UserDetailsDto> registerUser(@RequestBody UserDto dto) {
+	public ResponseEntity<UserDetailsDto> registerUser(@RequestBody CreateUserRequest dto) {
 		User user = convertToDto(dto);
 		user = service.registerUser(user);
 		UserDetailsDto detailsDto = convertToDetailsDto(user);
@@ -43,9 +43,8 @@ public class UserController {
 	 * @param dto
 	 * @return
 	 */
-	public User convertToDto(UserDto dto) {
+	public User convertToDto(CreateUserRequest dto) {
 		User user = new User();
-		user.setUserId(dto.getUserEmail());
 		user.setUserName(dto.getUserName());
 		user.setUserPassword(dto.getUserPassword());
 		user.setAge(dto.getAge());
