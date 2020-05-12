@@ -61,4 +61,18 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	@Override
+	public boolean equals(Object object) {
+		if(this == object)
+			return true;
+		if(object == null || (object instanceof User))
+			return false;
+		User user = (User) object;
+		return this.userId.equals(user.userId);
+	}
+	@Override
+	public int hashCode() {
+		return userId.hashCode();
+	}
+	
 }
