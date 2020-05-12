@@ -29,12 +29,16 @@ public class UserController {
 	@Autowired
 	private IUserService service;
 	
+	/**
+	 * Registering the user 
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping("/add")
-	public ResponseEntity<UserDetailsDto> registerUser(@RequestBody CreateUserRequest dto) {
+	public ResponseEntity<String> registerUser(@RequestBody CreateUserRequest dto) {
 		User user = convertToDto(dto);
-		user = service.registerUser(user);
-		UserDetailsDto detailsDto = convertToDetailsDto(user);
-		ResponseEntity<UserDetailsDto> response = new ResponseEntity<UserDetailsDto>(detailsDto, HttpStatus.OK);
+		String message = service.registerUser(user);
+		ResponseEntity<String> response = new ResponseEntity<String>(message, HttpStatus.OK);
 		return response;
 	}
 	
@@ -70,6 +74,11 @@ public class UserController {
 		return detailsDto;
 	}
 	
+	/**
+	 * Get user details by id
+	 * @param userId
+	 * @return
+	 */
 	@GetMapping("/get/{id}")
 	public ResponseEntity<UserDetailsDto> getUser(@PathVariable("id") String userId) {
 		User user = service.findById(userId);
