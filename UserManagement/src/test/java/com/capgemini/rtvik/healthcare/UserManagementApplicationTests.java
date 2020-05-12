@@ -34,26 +34,26 @@ class UserManagementApplicationTests {
 	/**
 	 * case when user doesn't exist in database before
 	 */
-	@Test
-	public void testAddUser_1() {
-		String userPassword = "rtvik", userName = "rtvik" , userEmail = "rtvik@gmail.com", gender = "Male";
-		BigInteger contact = new BigInteger("9810654577");
-		int age = 22;
-		
-		User user = new User();
-		user.setUserId(userEmail);
-		user.setUserName(userName);
-		user.setUserPassword(userPassword);
-		user.setUserEmail(userEmail);
-		user.setGender(gender);
-		user.setContactNo(contact);
-		user.setAge(age);
-		User result = service.registerUser(user);
-		List<User> fetched = em.createQuery("FROM User").getResultList();
-		Assertions.assertEquals(1, fetched.size());
-		User expected = fetched.get(0);
-		Assertions.assertEquals(expected, result);
-	}
+//	@Test
+//	public void testAddUser_1() {
+//		String userPassword = "rtvik", userName = "rtvik" , userEmail = "rtvik@gmail.com", gender = "Male";
+//		BigInteger contact = new BigInteger("9810654577");
+//		int age = 22;
+//		
+//		User user = new User();
+//		user.setUserId(userEmail);
+//		user.setUserName(userName);
+//		user.setUserPassword(userPassword);
+//		user.setUserEmail(userEmail);
+//		user.setGender(gender);
+//		user.setContactNo(contact);
+//		user.setAge(age);
+//		User result = service.registerUser(user);
+//		List<User> fetched = em.createQuery("FROM User").getResultList();
+//		Assertions.assertEquals(1, fetched.size());
+//		User expected = fetched.get(0);
+//		Assertions.assertEquals(expected, result);
+//	}
 	
 	/**
 	 * case when user already exists and again adding same user, verifying UserAlreadyExistsException is thrown
