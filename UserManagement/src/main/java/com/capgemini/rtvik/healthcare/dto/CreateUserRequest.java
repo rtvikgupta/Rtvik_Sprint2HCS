@@ -2,7 +2,7 @@ package com.capgemini.rtvik.healthcare.dto;
 
 import java.math.BigInteger;
 
-public class UserDto {
+public class CreateUserRequest {
 
 	private String userPassword;
 	private String userName;
