@@ -1,6 +1,7 @@
 package com.capgemini.rtvik.healthcare.service;
 
 import java.util.Optional;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -20,25 +21,36 @@ public class UserServiceImpl implements IUserService {
 	private IUserDao dao;
 	
 	@Override
-	public User registerUser(User user) {
-		// TODO Auto-generated method stub
-		if(!dao.findById(user.getUserEmail()).isPresent())
+	public String registerUser(User user) {
+		if(dao.findByUserEmail(user.getUserEmail())==false)
 		{
+			String id = generateId();
+			user.setUserId(id);
 			user = dao.save(user);
-			return user;
+			return "Registered successfully with id: "+user.getUserId();
 		}
-		throw new UserAlreadyExistsException("User Already exists for id: "+user.getUserEmail());
+		throw new UserAlreadyExistsException("User Already exists for email-id: "+user.getUserEmail());
 	}
+	
 
 	@Override
 	public User findById(String id) {
-		// TODO Auto-generated method stub
 		Optional<User> optional = dao.findById(id);
 		if(optional.isPresent()) {
 			User user = optional.get();
 			return user;
 		}
 		throw new UserNotFoundException("No User found for id: "+id);
+	}
+	
+	public String generateId() {
+		StringBuilder id = new StringBuilder();
+		for(int i=0;i<10;i++) {
+			Random random = new Random();
+			int digit = random.nextInt(9);
+			id.append(digit);
+		}
+		return id.toString();
 	}
 
 }
