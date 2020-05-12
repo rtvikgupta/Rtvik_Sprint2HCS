@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "apooint_info")
+@Table(name = "appoint_info")
 public class Appointment {
 
 	@Id
@@ -56,6 +56,21 @@ public class Appointment {
 	}
 	public void setTestId(String testId) {
 		this.testId = testId;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if(this == object)
+			return true;
+		if(object == null || (object instanceof Appointment))
+			return false;
+		Appointment appointment = (Appointment) object; 
+		return this.appointmentId.equals(appointment.appointmentId);
+	}
+	
+	@Override
+	public int hashCode() {
+		return appointmentId.hashCode();
 	}
 	
 }
