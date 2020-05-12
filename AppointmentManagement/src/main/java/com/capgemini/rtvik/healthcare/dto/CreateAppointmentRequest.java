@@ -1,6 +1,6 @@
 package com.capgemini.rtvik.healthcare.dto;
 
-public class AppointmentDto {
+public class CreateAppointmentRequest {
 
 	private String userId;
 	private String centerId;
