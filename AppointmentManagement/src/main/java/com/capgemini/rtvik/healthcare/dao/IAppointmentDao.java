@@ -12,7 +12,7 @@ import com.capgemini.rtvik.healthcare.entities.Appointment;
 public interface IAppointmentDao extends JpaRepository<Appointment, BigInteger> {
 
 	@Query("FROM Appointment WHERE centerId=:centerId AND status=false")
-	public List<Appointment> findByCenterId(@Param("centerId")String centerId); 
+	public List<Appointment> findUnApprovedAppointments(@Param("centerId")String centerId); 
 	
 	public List<Appointment> findByUserId(String userId); 
 }
