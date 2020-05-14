@@ -22,12 +22,12 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public String registerUser(User user) {
-		if(dao.findByUserEmail(user.getUserEmail())==false)
+		if(dao.findByUserEmail(user.getUserEmail())==null)
 		{
 			String id = generateId();
 			user.setUserId(id);
 			user = dao.save(user);
-			return "Registered successfully with id: "+user.getUserId();
+			return user.getUserId().toString();
 		}
 		throw new UserAlreadyExistsException("User Already exists for email-id: "+user.getUserEmail());
 	}
