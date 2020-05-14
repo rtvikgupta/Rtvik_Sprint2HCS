@@ -27,11 +27,7 @@ public class UserServiceImpl implements IUserService {
 			String id = generateId();
 			user.setUserId(id);
 			user = dao.save(user);
-<<<<<<< HEAD
 			return user.getUserId().toString();
-=======
-			return user.getUserId();
->>>>>>> f2bdae8c1711e9db74966d37e9e2a4f490c636e9
 		}
 		throw new UserAlreadyExistsException("User Already exists for email-id: "+user.getUserEmail());
 	}
