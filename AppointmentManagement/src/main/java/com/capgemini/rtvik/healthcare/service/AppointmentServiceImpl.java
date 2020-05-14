@@ -31,7 +31,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
 		appointment.setTestId(testId);
 		appointment.setDateTime(dateTime);
 		Appointment app = dao.save(appointment);
-		return "Appointment Made Successfully with id:"+app.getAppointmentId();
+		return app.getAppointmentId();
 	}
 
 	@Override
