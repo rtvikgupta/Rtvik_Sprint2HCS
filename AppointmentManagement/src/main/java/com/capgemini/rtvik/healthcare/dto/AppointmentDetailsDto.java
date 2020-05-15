@@ -1,20 +1,18 @@
 package com.capgemini.rtvik.healthcare.dto;
 
-import java.math.BigInteger;
-
 public class AppointmentDetailsDto {
 
-	private BigInteger appointmentId;
+	private String appointmentId;
 	private String dateTime;
 	private boolean status;
 	private String userId;
 	private String centerId;
 	private String testId;
 	
-	public BigInteger getAppointmentId() {
+	public String getAppointmentId() {
 		return appointmentId;
 	}
-	public void setAppointmentId(BigInteger appointmentId) {
+	public void setAppointmentId(String appointmentId) {
 		this.appointmentId = appointmentId;
 	}
 	public String getDateTime() {

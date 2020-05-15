@@ -2,10 +2,11 @@ package com.capgemini.rtvik.healthcare.dto;
 
 public class CreateAppointmentRequest {
 
+	private String dateTime;
 	private String userId;
 	private String centerId;
 	private String testId;
-	private String dateTime;
+	
 	
 	public String getUserId() {
 		return userId;

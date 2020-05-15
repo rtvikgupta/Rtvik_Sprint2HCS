@@ -72,7 +72,8 @@ public class AppointmentController {
 	 */
 	public AppointmentDetailsDto convertAppointmentDetails(Appointment app) {
 		AppointmentDetailsDto detailsDto = new AppointmentDetailsDto();
-		detailsDto.setAppointmentId(app.getAppointmentId());
+		String id = app.getAppointmentId().toString();
+		detailsDto.setAppointmentId(id);
 		detailsDto.setCenterId(app.getCenterId());
 		detailsDto.setDateTime(app.getDateTime().toString());
 		detailsDto.setStatus(app.isStatus());
@@ -115,8 +116,9 @@ public class AppointmentController {
 	 * @return
 	 */
 	@PutMapping("/approve/{id}")
-	public ResponseEntity<Boolean> approveAppointment(@PathVariable("id") BigInteger appointmentId) {
-		Appointment appoint = service.findById(appointmentId);
+	public ResponseEntity<Boolean> approveAppointment(@PathVariable("id") String appointmentId) {
+		BigInteger id = new BigInteger(appointmentId);
+		Appointment appoint = service.findById(id);
 		boolean status = service.approveAppointment(appoint);
 		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(status, HttpStatus.OK);
 		return response;
