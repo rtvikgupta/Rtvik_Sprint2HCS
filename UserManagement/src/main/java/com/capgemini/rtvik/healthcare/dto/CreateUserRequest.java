@@ -1,12 +1,10 @@
 package com.capgemini.rtvik.healthcare.dto;
 
-import java.math.BigInteger;
-
 public class CreateUserRequest {
 
 	private String userPassword;
 	private String userName;
-	private BigInteger contactNo;
+	private String contactNo;
 	private String userEmail;
 	private int age;
 	private String gender;
@@ -23,10 +21,10 @@ public class CreateUserRequest {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public BigInteger getContactNo() {
+	public String getContactNo() {
 		return contactNo;
 	}
-	public void setContactNo(BigInteger contactNo) {
+	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
 	public String getUserEmail() {

@@ -1,5 +1,7 @@
 package com.capgemini.rtvik.healthcare.controller;
 
+import java.math.BigInteger;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +56,8 @@ public class UserController {
 		user.setAge(dto.getAge());
 		user.setGender(dto.getGender());
 		user.setUserEmail(dto.getUserEmail());
-		user.setContactNo(dto.getContactNo());
+		BigInteger contactNo = new BigInteger(dto.getContactNo());
+		user.setContactNo(contactNo);
 		return user;
 	}
 	
@@ -70,7 +73,7 @@ public class UserController {
 		detailsDto.setUserEmail(user.getUserEmail());
 		detailsDto.setAge(user.getAge());
 		detailsDto.setGender(user.getGender());
-		detailsDto.setContactNo(user.getContactNo());
+		detailsDto.setContactNo(user.getContactNo().toString());
 		return detailsDto;
 	}
 	
