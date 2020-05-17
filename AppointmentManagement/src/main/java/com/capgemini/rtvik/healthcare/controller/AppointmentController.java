@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,9 +19,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.rtvik.healthcare.dto.AppointmentDetailsDto;
 import com.capgemini.rtvik.healthcare.dto.CreateAppointmentRequest;
+import com.capgemini.rtvik.healthcare.dto.DiagnosticCenter;
+import com.capgemini.rtvik.healthcare.dto.Test;
 import com.capgemini.rtvik.healthcare.entities.Appointment;
 import com.capgemini.rtvik.healthcare.exceptions.AppointmentNotFound;
 import com.capgemini.rtvik.healthcare.exceptions.CenterNotFound;
@@ -36,6 +40,12 @@ public class AppointmentController {
 	
 	@Autowired
 	private IAppointmentService service;
+	
+	@Value("${centertestservice.baseurl}")
+	private String centerTestServiceBaseUrl;
+	
+	@Autowired
+	private RestTemplate restTemplate; 
 	
 	/**
 	 * Make Appointment
@@ -121,6 +131,29 @@ public class AppointmentController {
 		Appointment appoint = service.findById(id);
 		boolean status = service.approveAppointment(appoint);
 		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(status, HttpStatus.OK);
+		return response;
+	}
+	
+	/**
+	 * Fetching all centers
+	 * @return
+	 */
+	@GetMapping("/centers")
+	public ResponseEntity<DiagnosticCenter[]> fetchAllCenter() {
+		String url = centerTestServiceBaseUrl;
+		ResponseEntity<DiagnosticCenter[]> response = restTemplate.getForEntity(url, DiagnosticCenter[].class);
+		return response;
+	}
+	
+	/**
+	 * Fetching all tests by diagnostic center id
+	 * @param centerId
+	 * @return
+	 */
+	@GetMapping("/tests/{id}")
+	public ResponseEntity<Test[]> fetchTestsByCenter(@PathVariable("id") String centerId) {
+		String url = centerTestServiceBaseUrl + "/show/tests/"+ centerId;
+		ResponseEntity<Test[]> response = restTemplate.getForEntity(url, Test[].class);
 		return response;
 	}
 	
