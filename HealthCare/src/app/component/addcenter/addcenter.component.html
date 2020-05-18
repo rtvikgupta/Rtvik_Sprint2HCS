@@ -1,0 +1,41 @@
+<div class="container">
+<h3>Add Center details</h3> 
+<form class="form-horizontal" #myform="ngForm" name="form"  (ngSubmit)="addCenter(myform)">
+<table><div class="table-class">
+   <tr>
+    <td><label>Center Name</label></td>
+    <td>  <input type="text" name="centerName" ngModel required maxlength="20"></td>  
+    </tr>
+       <tr><td> <label>Address</label></td>
+            <td><input type="text"  name="centerAddress" ngModel required maxlength="20"> </td>
+       </tr>  
+    <tr>
+        <td>
+            <label>ContactNo</label>
+        </td>
+        <td> <input type="text" maxlength="10"  name="centerNumber" ngModel pattern="[1-9]{1}[0-9]{9}" required></td>
+    </tr>
+<input type="submit" [disabled]="myform.form.invalid"></div>
+</table>
+    </form>
+
+    <div *ngIf="added">
+        <br>
+        <span style="color: red;">{{addedCenter.centerName }} already exists....</span>
+      </div> 
+  
+
+      <br>
+     <div *ngIf="dc"><h3 style="color: green;">Added center details are----------------------------------------------</h3>
+    {{"centerId is "+ addedCenter.centerId}}<br>
+    {{"centerName is "+addedCenter.centerName}}<br>
+    {{"centerAddress is "+addedCenter.address}}<br>
+    {{"contactNo is "+addedCenter.contactNo}}<br>
+    <div *ngFor="let t of addedCenter.tests">
+       testId is {{t.testId}}
+       testName is {{t.testName}}
+    </div>
+   
+  
+    </div>
+</div>

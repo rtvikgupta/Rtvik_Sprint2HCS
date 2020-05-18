@@ -1,0 +1,31 @@
+<div class="container">
+<h2>Remove Test</h2> 
+<form class="form-horizontal" #form="ngForm" name="form"  (ngSubmit)="removeTestFromCenter(form)">
+<table><div class="table-class">
+  <tr>  
+     <td>  <label>Center Id</label></td> 
+      <td> <input type="text"  name="centerid" ngModel required></td> 
+   </tr>
+       <tr><td> <label>Test Id</label></td>
+            <td><input type="text"  name="testid" ngModel required > </td>
+       </tr>  
+<input type="submit" [disabled]='form.form.invalid'></div>
+</table>
+    </form>
+    <br>
+    <div *ngIf="removed">
+    {{"centerid is "+ center.centerId}}<br>
+    {{"centerName is "+center.centerName}}<br>
+    {{"centerAddress is "+center.address}}<br>
+    {{"contactno is "+center.contactNo}}<br>
+    <div *ngFor="let t of center.tests">
+       testId is {{t.testId}}
+       testName is{{t.testName}}
+    </div>
+</div> 
+
+<div *ngIf="dc">
+   <b>"test  cannot be removed ... test not exists"</b>
+</div>
+    
+</div>

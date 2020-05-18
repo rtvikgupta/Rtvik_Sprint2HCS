@@ -1,0 +1,34 @@
+<div class="container">
+<h3>Remove Center</h3> 
+<form #form="ngForm" name="form" (ngSubmit)="removeCenter(form)">
+
+    <table><div class="table-class">
+    <tr>
+        <td>
+            <label>Center Id</label>
+        </td>
+        <td>
+            <input type="text"  name="centerId" ngModel required maxlength="20">
+        </td>
+    </tr>
+     
+    <input type="submit"  [disabled]="form.form.invalid"></div>
+</table>
+    </form>
+
+    <br>
+    <div *ngIf="removed"><h3 style="color: green;">Deleted Center-------------------------------------------------------</h3>
+        {{"centerId id "+foundCenter.centerId}}
+        {{"centerName is "+foundCenter.centerName}}<br>
+        {{"centerAddress is "+foundCenter.address}}<br>
+        {{"contactNo is "+foundCenter.contactNo}}<br>
+        <div *ngFor="let t of foundCenter.tests">
+           testId is {{t.testId}}
+           testName is {{t.testName}}
+        </div>
+    </div>
+  
+  <div *ngIf="dc">
+    <b>"center not exists"</b> 
+  </div>
+</div>

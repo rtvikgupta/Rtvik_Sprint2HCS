@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>User Appointments</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Appointment Id</th>
+            <th>Center</th>
+            <th>Test</th>
+            <th>Date Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tr *ngFor = "let a of showappointments">
+            <th scope="row">{{a.appointmentId}}</th>
+            <td>{{a.centerId}}</td>
+            <td>{{a.testId}}</td>
+            <td>{{a.dateTime}}</td>
+            <td>{{a.status}}</td>
+        </tr>
+    </table>
+</div>
