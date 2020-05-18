@@ -31,6 +31,9 @@
             <td><input type="hidden" #id value={{a.appointmentId}}></td>
         </tr>
     </table>
+    <div *ngIf = "flag">
+        <h3 style="color: green;">No Appointments Pending!!!</h3>
+    </div>
     </div>
     </form>
 </div>

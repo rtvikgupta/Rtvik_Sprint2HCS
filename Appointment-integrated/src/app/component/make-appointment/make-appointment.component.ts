@@ -20,6 +20,7 @@ export class MakeAppointmentComponent implements OnInit {
   min:String;
   appId:string;
   centerId:String;
+  flag:boolean  = false;
 
   constructor(service:AppointmentService,dummyService:DummyDataService) {
         this.service = service;
@@ -40,6 +41,7 @@ export class MakeAppointmentComponent implements OnInit {
   }
 
   makeAppointment(form:any){
+    this.flag = false;
     let details = form.value;
     let centerId = details.center;
     let testId = details.test;
@@ -49,6 +51,7 @@ export class MakeAppointmentComponent implements OnInit {
     let result:Observable<string>=this.service.addAppointment(a);
     result.subscribe(a => {
       this.appId = a;
+      this.flag = true;
     },
     err=>console.log(err)
     );

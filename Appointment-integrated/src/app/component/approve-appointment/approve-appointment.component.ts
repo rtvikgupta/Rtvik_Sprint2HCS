@@ -19,6 +19,7 @@ export class ApproveAppointmentComponent implements OnInit {
   appStatus:boolean;
   centerId:String;
   appointmentId:String;
+  flag:boolean = false;
 
   constructor(service:AppointmentService,dummyService:DummyDataService) {
       this.service = service;
@@ -30,12 +31,17 @@ export class ApproveAppointmentComponent implements OnInit {
   }
 
   getAppointments(){
+    this.flag = false;
     this.showappointments=[];
     let result:Observable<RequestAppointment[]>=this.service.fetchAppointmentsByCenter(this.centerId);
     result.subscribe(a => {
       this.showappointments = a;
     },
-    err=>console.log(err)
+    err=>{
+      console.log(err);
+      if(this.showappointments.length === 0)
+        this.flag = true;
+    }
     );
   }
 

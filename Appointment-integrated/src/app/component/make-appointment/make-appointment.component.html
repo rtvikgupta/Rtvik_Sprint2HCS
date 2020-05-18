@@ -41,4 +41,7 @@
     <button class="btn btn-primary" [disabled]="form.form.invalid" type="submit">Confirm Appointment</button>
     
     </form>
+    <div *ngIf = "flag">
+        <h3 style="color: green;">Appointment Made Successfully!!</h3>
+    </div>
     </div>
