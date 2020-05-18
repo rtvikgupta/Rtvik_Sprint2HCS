@@ -1,0 +1,44 @@
+<div class="container">
+    <h2>Make Appointment</h2>
+    
+    <form class="form-horizontal" #form="ngForm" (ngSubmit)="form.valid && makeAppointment(form)">
+    
+    <div class="form-group">
+        <label class="control-label col-sm-2">Select Center</label>
+        <div class="col-sm-5">
+        <select (click)="getTest()" #center="ngModel" name="center" [(ngModel)]="centerId" required>
+            <option *ngFor = "let c of centers" value={{c.id}}>{{c.name}}</option>
+        </select>
+        </div>
+        <div *ngIf="center.invalid">
+            <div *ngIf="center.touched">
+                <span style="color: red;">Center Required!!</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-sm-2">Select Test</label>
+        <div class="col-sm-5">
+        <select name="test" #test="ngModel" ngModel required>
+            <option *ngFor = "let t of tests" value={{t.id}}>{{t.name}}</option>
+        </select>
+        </div>
+        <div *ngIf="test.invalid ">
+            <div *ngIf="test.touched">
+                <span style="color: red;">Test Required!!</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-sm-3">Choose date and time:</label>
+        <div class="col-sm-3">
+        <input type="datetime-local" (click)="getMin()" class="form-control" min={{min}} required name="dateTime" ngModel>
+        </div>
+    </div>
+    
+    <button class="btn btn-primary" [disabled]="form.form.invalid" type="submit">Confirm Appointment</button>
+    
+    </form>
+    </div>

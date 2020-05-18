@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Approve Appointment</h2>
+    
+    <form class="form-horizontal" #form="ngForm" (ngSubmit)="form.valid && approve(form)">
+  
+    <div class="form-group">
+    <label class="control-label col-sm-2">Select Center</label>
+    <select (change)="getAppointments()" #center="ngModel" name="center" [(ngModel)]="centerId">
+        <option *ngFor = "let c of centers" value={{c.id}}>{{c.name}}</option>
+    </select>
+    </div>
+    
+    <div class="form-group">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Appointment Id</th>
+            <th>User Id</th>
+            <th>Test</th>
+            <th>Date Time</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tr *ngFor = "let a of showappointments">
+            <th scope="row">{{a.appointmentId}}</th>
+            <td>{{a.userId}}</td>
+            <td>{{a.testId}}</td>
+            <td>{{a.dateTime}}</td>
+            <!-- <td> <button class="btn btn-primary" type="submit">Approve</button></td> -->
+            <td><input type="submit" (click)="approve(id)" value="Approve"></td>
+            <td><input type="hidden" #id value={{a.appointmentId}}></td>
+        </tr>
+    </table>
+    </div>
+    </form>
+</div>
