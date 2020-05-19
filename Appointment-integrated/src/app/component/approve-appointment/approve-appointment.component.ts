@@ -56,15 +56,6 @@ export class ApproveAppointmentComponent implements OnInit {
     );
   }
 
-  // approve(form){
-  //   let details = form.value;
-    
-  //   let result:Observable<boolean>=this.service.approveAppointment(this.appointmentId);
-  //   result.subscribe(a => {
-  //     this.appStatus = a;
-  //   },
-  //   err=>console.log(err)
-  //   );
-  // }
+ 
 
 }
